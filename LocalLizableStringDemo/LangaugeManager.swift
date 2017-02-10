@@ -42,3 +42,23 @@ class LangaugeManager {
     }
     
 }
+extension String{
+    var localized:String{
+        get{
+            if let data = UserDefaults.standard.object(forKey: LangaugeManager.languageCode){
+                let locale = NSKeyedUnarchiver.unarchiveObject(with: data as! Data) as! Locale
+                let languageCode = locale.languageCode.lowercased()
+                let bundlePath = Bundle.main.path(forResource: languageCode, ofType: "lproj")
+                let languageBundle = Bundle(path: bundlePath!)
+                var translateString = languageBundle?.localizedString(forKey: self, value: "", table: nil)
+                if (translateString?.characters.count)! < 1 {
+                    translateString = NSLocalizedString(self, tableName: nil, bundle: Bundle.main, value: self, comment: self)
+                }
+                return translateString!
+            }else{
+                print("Nil")
+            }
+            return ""
+        }
+    }
+}

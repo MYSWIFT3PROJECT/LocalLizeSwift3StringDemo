@@ -16,7 +16,7 @@ class Locale:NSObject, NSCoding{
         self.languageCode = languageCode
     }
    public required init?(coder aCoder:NSCoder) {
-        self.languageName = aCoder.decodeObject(forKey: "langaugeName") as! String
+        self.languageName = aCoder.decodeObject(forKey: "languageName") as! String
         self.languageCode = aCoder.decodeObject(forKey: "languageCode") as! String
     }
     public func encode(with aCoder:NSCoder){

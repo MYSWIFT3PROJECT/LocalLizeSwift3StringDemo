@@ -15,8 +15,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-       
-        
+        //share instance
+        let userDefaulfs = UserDefaults.standard
+        let languageManager = LangaugeManager.shared
+        //check language cod is already set
+        if((userDefaulfs.value(forKey:LangaugeManager.languageCode))==nil)
+        {
+            print("NO language set")
+        }
+        for localization in languageManager.availablelocales{
+            if localization.languageCode.caseInsensitiveCompare(NSLocale.current.languageCode!) == .orderedSame{
+                languageManager.language = localization
+                break
+            }
+          
+        }
+        //if the device locale doesn't match
+        if (userDefaulfs.object(forKey: LangaugeManager.languageCode)==nil){
+            print("Couldn't find the right localizatiob- using defaul")
+        }else{
+            print("The language has already been set :)")
+        }
         return true
     }
 
